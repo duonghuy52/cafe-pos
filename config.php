@@ -3,11 +3,11 @@
 
 // Nếu chạy trên Railway (có biến môi trường MYSQLHOST)
 if (getenv('MYSQLHOST')) {
-    define('DB_HOST', getenv('MYSQLHOST'));
-    define('DB_NAME', getenv('MYSQLDATABASE'));
-    define('DB_USER', getenv('MYSQLUSER'));
-    define('DB_PASS', getenv('MYSQLPASSWORD'));
-    define('DB_PORT', getenv('MYSQLPORT'));
+    define('DB_HOST', getenv('crossover.proxy.rlwy.net'));
+    define('DB_NAME', getenv('railway'));
+    define('DB_USER', getenv('root'));
+    define('DB_PASS', getenv('XhawzLbGdhYscmtlGTIXXWHfEbWpusgk'));
+    define('DB_PORT', getenv('18614'));
 } else {
     // Local XAMPP
     define('DB_HOST', '127.0.0.1');
