@@ -1,13 +1,13 @@
 <?php
 // config.php — Cấu hình Database dùng được cho Local & Railway
 
-// Nếu chạy trên Railway (có biến môi trường MYSQLHOST)
 if (getenv('MYSQLHOST')) {
-    define('DB_HOST', getenv('crossover.proxy.rlwy.net'));
-    define('DB_NAME', getenv('railway'));
-    define('DB_USER', getenv('root'));
-    define('DB_PASS', getenv('XhawzLbGdhYscmtlGTIXXWHfEbWpusgk'));
-    define('DB_PORT', getenv('18614'));
+    // Railway
+    define('DB_HOST', getenv('MYSQLHOST'));
+    define('DB_NAME', getenv('MYSQLDATABASE'));
+    define('DB_USER', getenv('MYSQLUSER'));
+    define('DB_PASS', getenv('MYSQLPASSWORD'));
+    define('DB_PORT', getenv('MYSQLPORT'));
 } else {
     // Local XAMPP
     define('DB_HOST', '127.0.0.1');
@@ -20,7 +20,6 @@ if (getenv('MYSQLHOST')) {
 function getPDO() {
     static $pdo = null;
     if ($pdo === null) {
-
         $dsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT .
                ";dbname=" . DB_NAME . ";charset=utf8mb4";
 
