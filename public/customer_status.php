@@ -8,7 +8,7 @@ require_once __DIR__ . '/../config.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trạng thái đơn hàng</title>
-  <link rel="stylesheet" href="/cafe-pos/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <style>
     /* Định nghĩa phong cách riêng cho trang trạng thái của khách */
     .status-container { max-width: 800px; margin: 0 auto; padding: 120px 24px 24px 24px; }
@@ -36,7 +36,7 @@ require_once __DIR__ . '/../config.php';
     
   <div class="brand" style="border-radius:0; position:fixed; top:0; left:0; right:0; z-index:100;">
     <div style="display:flex; align-items:center; gap:16px; width:100%; max-width:1600px; margin:0 auto;">
-       <a href="/cafe-pos/public/customer_index.php" class="back-btn">← Quay lại Đặt món</a>
+       <a href="/public/customer_index.php" class="back-btn">← Quay lại Đặt món</a>
        <div class="brand-text">
          <div class="title">Trạng thái đơn hàng</div>
          <div class="subtitle">Theo dõi đơn hàng của bạn</div>
@@ -62,7 +62,7 @@ require_once __DIR__ . '/../config.php';
     async function loadOrders(){
       try {
           // Gọi API lấy tất cả các đơn hàng
-          const res = await fetch('/cafe-pos/api/report.php?status=all');
+          const res = await fetch('/api/report.php?status=all');
           const data = await res.json();
           
           // Kiểm tra nếu phản hồi không thành công
