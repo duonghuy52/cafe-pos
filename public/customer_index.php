@@ -8,7 +8,7 @@ require_once __DIR__ . '/../config.php';
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Menu Khách Hàng - Cafe POS</title>
-  <link rel="stylesheet" href="/cafe-pos/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <style>
     /* Các tùy chỉnh giao diện bổ sung dành riêng cho trang khách hàng */
     .topbar { justify-content: space-between; }
@@ -21,7 +21,7 @@ require_once __DIR__ . '/../config.php';
   <div class="container">
     <div style="flex: 2; display: flex; flex-direction: column;">
       <header class="brand">
-        <img src="/cafe-pos/ảnh/logo.jpg" alt="logo" class="logo" onerror="this.style.display='none'">
+        <img src="/ảnh/logo.jpg" alt="logo" class="logo" onerror="this.style.display='none'">
         <div class="brand-text">
           <div class="title">Xin chào Quý Khách</div>
           <div class="subtitle">Vui lòng chọn món tại đây</div>
@@ -43,7 +43,7 @@ require_once __DIR__ . '/../config.php';
           </ul>
         </div>
         <div class="nav-links">
-            <a id="status-link" href="/cafe-pos/public/customer_status.php">
+            <a id="status-link" href="/public/customer_status.php">
               Trạng thái <span id="status-badge" class="status-badge" style="display:none">0</span>
           </a>
         </div>
@@ -76,6 +76,6 @@ require_once __DIR__ . '/../config.php';
 
     window.CAFE_POS_USER = { id: 0, username: 'guest', role: 'customer' };
   </script>
-  <script src="/cafe-pos/assets/js/customer_pos.js"></script>
+  <script src="/assets/js/customer_pos.js"></script>
 </body>
 </html>
