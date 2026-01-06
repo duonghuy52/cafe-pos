@@ -43,7 +43,7 @@ $items = $stmt2->fetchAll();
 <body>
   <div class="receipt">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-      <img src="/cafe-pos/assets/images/logo.svg" alt="logo" style="width:90px">
+      <img src="/assets/images/logo.svg" alt="logo" style="width:90px">
       <div>
         <div style="font-weight:700;font-size:16px;color:#2B8EAD">Quán Cafe</div>
         <div style="font-size:12px;color:#666">Hóa đơn bán hàng</div>
