@@ -4,7 +4,7 @@ session_start();
 
 // Nếu đã đăng nhập, chuyển hướng đến trang chính
 if (isset($_SESSION['user'])) {
-    header('Location: /cafe-pos/public/index.php');
+    header('Location: /public/index.php');
     exit;
 }
 ?>
@@ -14,13 +14,13 @@ if (isset($_SESSION['user'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Đăng nhập - Cafe POS</title>
-  <link rel="stylesheet" href="/cafe-pos/assets/css/login.css">
+  <link rel="stylesheet" href="/assets/css/login.css">
 </head>
 <body>
   <div class="login-container">
     <div class="login-box">
       <div class="login-header">
-        <img src="/cafe-pos/ảnh/logo.jpg" alt="logo" class="login-logo">
+        <img src="/ảnh/logo.jpg" alt="logo" class="login-logo">
         <h1>Cafe POS</h1>
         <p>Hệ thống bán hàng chuyên nghiệp</p>
       </div>
@@ -51,6 +51,6 @@ if (isset($_SESSION['user'])) {
     <div class="login-bg"></div>
   </div>
 
-  <script src="/cafe-pos/assets/js/login.js"></script>
+  <script src="/assets/js/login.js"></script>
 </body>
 </html>
