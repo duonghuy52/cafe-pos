@@ -15,7 +15,7 @@ function toCSV(rows) {
 async function load() {
     const s = document.getElementById('start').value;
     const e = document.getElementById('end').value;
-    const url = '/cafe-pos/api/report.php?start=' + encodeURIComponent(s) + '&end=' + encodeURIComponent(e);
+    const url = '/api/report.php?start=' + encodeURIComponent(s) + '&end=' + encodeURIComponent(e);
     const res = await fetch(url);
     const data = await res.json();
     
@@ -65,7 +65,7 @@ async function load() {
       <td><strong>${new Intl.NumberFormat('vi-VN').format(o.total)} VND</strong></td>
       <td>${o.created_at}</td>
       <td>
-        <a target="_blank" href="/cafe-pos/public/invoice.php?order_id=${o.id}">🖨️ In hóa đơn</a>
+        <a target="_blank" href="/public/invoice.php?order_id=${o.id}">🖨️ In hóa đơn</a>
         <button class="del-order" data-id="${o.id}" style="margin-left:8px;padding:6px 8px;border-radius:6px;border:2px solid #fee2e2;background:#fee2e2;cursor:pointer">Xóa</button>
       </td>
     </tr>`;
@@ -77,7 +77,7 @@ async function load() {
             b.disabled = true;
             b.style.opacity = '0.6';
             try {
-                const res = await fetch('/cafe-pos/api/orders.php', {
+                const res = await fetch('/api/orders.php', {
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: id })
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('csv').onclick = async() => {
         const s = document.getElementById('start').value;
         const e = document.getElementById('end').value;
-        const res = await fetch('/cafe-pos/api/report.php?start=' + encodeURIComponent(s) + '&end=' + encodeURIComponent(e));
+        const res = await fetch('/api/report.php?start=' + encodeURIComponent(s) + '&end=' + encodeURIComponent(e));
         const data = await res.json();
         if (!data.ok) return alert('Lỗi');
         
