@@ -22,11 +22,14 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
             body: JSON.stringify({ username, password }),
         });
 
+        const text = await response.text(); // Lấy dữ liệu thô từ server
         let data = {};
+        
         try {
-            data = await response.json();
+            data = JSON.parse(text); // Cố gắng chuyển sang JSON
         } catch (jsonError) {
-            showError('Server trả về dữ liệu không hợp lệ');
+            console.error("Server Raw Response:", text); // Xem lỗi chi tiết trong Console (F12)
+            showError('Lỗi Server: ' + text.substring(0, 80) + '...'); 
             return;
         }
 
@@ -169,8 +172,15 @@ document.getElementById('password').addEventListener('keypress', (e) => {
                     body: JSON.stringify({ username: u, password: p })
                 });
 
+                // Sửa tương tự cho phần đăng ký
+                const text = await res.text();
                 let d = {};
-                try { d = await res.json(); } catch(e) { d = {}; }
+                try { d = JSON.parse(text); } catch(e) { 
+                    console.error(text); 
+                    msg.textContent = 'Lỗi server (xem console)';
+                    msg.classList.add('error');
+                    return;
+                }
 
                 if (res.ok && d.ok) {
                     msg.textContent = 'Tạo tài khoản thành công! Vui lòng đăng nhập.';
