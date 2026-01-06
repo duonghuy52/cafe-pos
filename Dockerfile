@@ -1,17 +1,22 @@
-# Dùng image PHP + Apache
 FROM php:8.2-apache
 
-# Cài PDO MySQL và các extension cần thiết
+# Cài PDO MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Copy toàn bộ project vào container
+# Copy project
 COPY . /var/www/html/
 
-# Thiết lập quyền (nếu cần)
+# Quyền
 RUN chown -R www-data:www-data /var/www/html
 
-# Chuyển Apache lắng nghe port 8080
-RUN sed -i 's/80/8080/g' /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+# dùng biến môi trường PORT do Railway cung cấp
+ENV APACHE_LISTEN_PORT=${PORT:-8080}
 
-# Mở port 8080
-EXPOSE 8080
+# Sửa Apache lắng nghe port
+RUN sed -i "s/80/${APACHE_LISTEN_PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+# Mở port
+EXPOSE ${APACHE_LISTEN_PORT}
+
+# Chạy Apache foreground
+CMD ["apache2-foreground"]
