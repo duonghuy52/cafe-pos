@@ -4,7 +4,7 @@ session_start();
 
 // Kiểm tra trạng thái đăng nhập của người dùng
 if (!isset($_SESSION['user'])) {
-    header('Location: /cafe-pos/public/login.php');
+    header('Location: /public/login.php');
     exit;
 }
 
