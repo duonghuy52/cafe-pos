@@ -20,7 +20,7 @@ if (is_dir($imageDir)) {
             if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                 $images[] = [
                     'filename' => $file,
-                    'path' => '/cafe-pos/ảnh/' . $file
+                    'path' => '/ảnh/' . $file
                 ];
             }
         }
