@@ -2,7 +2,7 @@
 // Hàm lấy danh sách sản phẩm từ API
 async function fetchProducts() {
     try {
-        const res = await fetch('/cafe-pos/api/products.php');
+        const res = await fetch('/api/products.php');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         return await res.json();
     } catch (e) {
@@ -250,7 +250,7 @@ async function updatePendingBadge() {
     const badge = document.getElementById('status-badge');
     if (!badge) return;
     try {
-        const res = await fetch('/cafe-pos/api/report.php?status=pending');
+        const res = await fetch('/api/report.php?status=pending');
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const d = await res.json();
         const n = (d.orders && Array.isArray(d.orders)) ? d.orders.length : 0;
@@ -275,7 +275,7 @@ async function updateAdminBadge() {
     try {
         let products = window.ALL_PRODUCTS;
         if (!products) {
-            const res = await fetch('/cafe-pos/api/products.php');
+            const res = await fetch('/api/products.php');
             if (!res.ok) throw new Error('HTTP ' + res.status);
             products = await res.json();
             window.ALL_PRODUCTS = products;
@@ -808,7 +808,7 @@ async function pay() {
 
     // Lấy danh sách bàn đã được đặt từ API
     try {
-        const tr = await fetch('/cafe-pos/api/tables.php');
+        const tr = await fetch('/api/tables.php');
         if (tr.ok) {
             const td = await tr.json();
             const reserved = new Set((td.reserved || []).map(Number));
@@ -892,7 +892,7 @@ async function pay() {
 
         // Gửi đơn hàng chờ duyệt tới API
         try {
-            const res = await fetch('/cafe-pos/api/orders.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: checkedItems, customer_name: name, customer_phone: phone, table_number: table_number }) });
+            const res = await fetch('/api/orders.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: checkedItems, customer_name: name, customer_phone: phone, table_number: table_number }) });
             if (res.ok) {
                 const data = await res.json();
                 CART = CART.filter(i => !i.checked);
