@@ -20,7 +20,7 @@ document.getElementById('login-form').addEventListener('submit', async(e) => {
 
     try {
         // Gửi yêu cầu đăng nhập tới API phía Backend
-        const response = await fetch('/cafe-pos/api/login.php', {
+        const response = await fetch('/api/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ document.getElementById('login-form').addEventListener('submit', async(e) => {
 
                 // Tự động chuyển hướng về trang chủ sau 1 giây
                 setTimeout(() => {
-                    window.location.href = '/cafe-pos/public/index.php';
+                    window.location.href = '/public/index.php';
                 }, 1000);
             }
         } else {
@@ -175,7 +175,7 @@ document.getElementById('password').addEventListener('keypress', (e) => {
             create.textContent = '⏳ Đang tạo...';
 
             try {
-                const res = await fetch('/cafe-pos/api/register.php', { 
+                const res = await fetch('/api/register.php', { 
                     method: 'POST', 
                     headers: { 'Content-Type': 'application/json' }, 
                     body: JSON.stringify({ username: u, password: p }) 
