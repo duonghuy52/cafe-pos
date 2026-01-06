@@ -4,7 +4,7 @@ session_start();
 
 // Kiểm tra trạng thái đăng nhập của người dùng
 if (!isset($_SESSION['user'])) {
-    header('Location: /cafe-pos/public/login.php');
+    header('Location: /public/login.php');
     exit;
 }
 
@@ -275,8 +275,8 @@ if (!isset($_SESSION['user'])) {
       </div>
       <div class="user-info">
         <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
-        <a href="/cafe-pos/api/logout.php" class="logout-btn">Đăng xuất</a>
-        <a href="/cafe-pos/public/index.php" class="back-btn">Về POS</a>
+        <a href="/api/logout.php" class="logout-btn">Đăng xuất</a>
+        <a href="/public/index.php" class="back-btn">Về POS</a>
       </div>
       <script>window.CAFE_POS_USER = <?php echo json_encode(['id'=> $_SESSION['user']['id'], 'username' => $_SESSION['user']['username'], 'role' => $_SESSION['user']['role']]); ?>;</script>
     </div>
@@ -336,6 +336,6 @@ if (!isset($_SESSION['user'])) {
       </table>
     </div>
   </div>
-  <script src="/cafe-pos/assets/js/report.js"></script>
+  <script src="/assets/js/report.js"></script>
 </body>
 </html>
