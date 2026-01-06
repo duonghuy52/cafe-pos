@@ -6,7 +6,7 @@ session_start();
 // Kiểm tra xem người dùng đã đăng nhập hay chưa
 if (!isset($_SESSION['user'])) {
     // Nếu chưa đăng nhập, chuyển hướng về trang đăng nhập
-    header('Location: /cafe-pos/public/login.php');
+    header('Location: /public/login.php');
     exit;
 }
 ?>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['user'])) {
             
             try {
                 // Gửi yêu cầu POST tới API xử lý upload
-                const res = await fetch('/cafe-pos/api/upload.php', {
+                const res = await fetch('/api/upload.php', {
                     method: 'POST',
                     body: formData
                 });
