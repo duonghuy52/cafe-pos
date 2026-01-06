@@ -1,24 +1,14 @@
 <?php
-// config.php — Cấu hình Database tối ưu cho Railway 
+// config.php — Kết nối trực tiếp tới MySQL Railway từ local
 
-ini_set('display_errors', 0);
-ini_set('log_errors', 1);
+// Thông tin lấy từ MYSQL_PUBLIC_URL của Railway
+define('DB_HOST', 'crossover.proxy.rlwy.net');
+define('DB_PORT', 18614);
+define('DB_NAME', 'railway');
+define('DB_USER', 'root');
+define('DB_PASS', 'XhawzLbGdhYscmtlGTIXXWHfEbWpusgk');
 
-// Lấy biến môi trường an toàn
-function getEnvVar(string $key, $default = null) {
-    $val = $_ENV[$key] ?? getenv($key);
-    return $val !== false ? $val : $default;
-}
-
-// Định nghĩa thông tin DB
-define('DB_HOST', getEnvVar('MYSQLHOST', '127.0.0.1'));
-define('DB_NAME', getEnvVar('MYSQLDATABASE', 'cafe_pos'));
-define('DB_USER', getEnvVar('MYSQLUSER', 'root'));
-define('DB_PASS', getEnvVar('MYSQLPASSWORD', ''));
-define('DB_PORT', getEnvVar('MYSQLPORT', 3306));
-
-// Khởi tạo PDO
-function getPDO(): PDO {
+function getPDO() {
     static $pdo = null;
     if ($pdo === null) {
         try {
@@ -30,7 +20,7 @@ function getPDO(): PDO {
             ];
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
-            // Trả về lỗi JSON nếu kết nối DB thất bại
+            // Báo lỗi kết nối
             header('Content-Type: application/json; charset=utf-8');
             http_response_code(500);
             echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
@@ -39,4 +29,3 @@ function getPDO(): PDO {
     }
     return $pdo;
 }
-?>
