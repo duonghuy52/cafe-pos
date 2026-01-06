@@ -1,36 +1,44 @@
 <?php
-// config.php — Cấu hình Database tối ưu cho Railway & Local
+// config.php — Cấu hình Database cho Railway 
 
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
-// Hàm hỗ trợ lấy biến môi trường an toàn (Ưu tiên $_ENV cho Railway)
-function getEnvVar($key, $default = null) {
-    if (isset($_ENV[$key])) {
-        return $_ENV[$key];
-    }
+// Lấy biến môi trường an toàn
+function getEnvVar(string $key, $default = null) {
+    if (isset($_ENV[$key])) return $_ENV[$key];
     $val = getenv($key);
     return ($val !== false) ? $val : $default;
 }
 
-// Xác định thông tin kết nối
-if (getEnvVar('MYSQLHOST')) {
-    // Cấu hình Railway
-    define('DB_HOST', getEnvVar('MYSQLHOST'));
-    define('DB_NAME', getEnvVar('MYSQLDATABASE'));
-    define('DB_USER', getEnvVar('MYSQLUSER'));
-    define('DB_PASS', getEnvVar('MYSQLPASSWORD'));
-    define('DB_PORT', getEnvVar('MYSQLPORT'));
-} else {
-    // Cấu hình Local (XAMPP/MAMP)
-    define('DB_HOST', '127.0.0.1');
-    define('DB_NAME', 'cafe_pos');
-    define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_PORT', 3306);
+// Railway MySQL bắt buộc có những biến này
+$requiredEnv = ['MYSQLHOST','MYSQLDATABASE','MYSQLUSER','MYSQLPASSWORD','MYSQLPORT'];
+foreach ($requiredEnv as $v) {
+    if (!getEnvVar($v)) {
+        header('Content-Type: application/json; charset=utf-8');
+        http_response_code(500);
+        echo json_encode(['error' => "Missing environment variable: $v"]);
+        exit;
+    }
 }
 
-function getPDO() {
+// Định nghĩa thông tin DB
+define('DB_HOST', getEnvVar('MYSQLHOST'));
+define('DB_NAME', getEnvVar('MYSQLDATABASE'));
+define('DB_USER', getEnvVar('MYSQLUSER'));
+define('DB_PASS', getEnvVar('MYSQLPASSWORD'));
+define('DB_PORT', getEnvVar('MYSQLPORT'));
+
+// Kiểm tra xem PDO MySQL driver có tồn tại không
+if (!in_array('mysql', PDO::getAvailableDrivers())) {
+    header('Content-Type: application/json; charset=utf-8');
+    http_response_code(500);
+    echo json_encode(['error' => 'PDO MySQL driver not installed']);
+    exit;
+}
+
+// Khởi tạo PDO
+function getPDO(): PDO {
     static $pdo = null;
     if ($pdo === null) {
         try {
@@ -45,7 +53,6 @@ function getPDO() {
 
             $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         } catch (PDOException $e) {
-            // Nếu lỗi kết nối, trả về JSON lỗi và dừng ngay lập tức
             header('Content-Type: application/json; charset=utf-8');
             http_response_code(500);
             echo json_encode(['error' => 'Database connection failed: ' . $e->getMessage()]);
