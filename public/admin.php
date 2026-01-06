@@ -11,7 +11,7 @@ if (!isset($_SESSION['user'])) {
 // Kiểm tra quyền hạn (Chỉ cho phép tài khoản có role là 'admin' truy cập)
 if ($_SESSION['user']['role'] !== 'admin') {
     http_response_code(403);
-    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Truy cập bị từ chối</title><style>body{font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;background:#f3f4f6;margin:0}div{background:white;padding:40px;border-radius:12px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}h1{color:#ef4444;margin-top:0}p{color:#6b7280;margin-bottom:20px}a{color:#6366f1;text-decoration:none;font-weight:600}</style></head><body><div><h1>Truy cập bị từ chối</h1><p>Chỉ tài khoản admin mới có thể truy cập trang này.</p><a href="/cafe-pos/public/index.php">Quay lại POS</a></div></body></html>';
+    echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Truy cập bị từ chối</title><style>body{font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;background:#f3f4f6;margin:0}div{background:white;padding:40px;border-radius:12px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.1)}h1{color:#ef4444;margin-top:0}p{color:#6b7280;margin-bottom:20px}a{color:#6366f1;text-decoration:none;font-weight:600}</style></head><body><div><h1>Truy cập bị từ chối</h1><p>Chỉ tài khoản admin mới có thể truy cập trang này.</p><a href="/public/index.php">Quay lại POS</a></div></body></html>';
     exit;
 }
 ?>
@@ -21,7 +21,7 @@ if ($_SESSION['user']['role'] !== 'admin') {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Quản trị sản phẩm - Cafe POS</title>
-  <link rel="stylesheet" href="/cafe-pos/assets/css/admin.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body>
   <div class="admin-container">
@@ -32,8 +32,8 @@ if ($_SESSION['user']['role'] !== 'admin') {
       </div>
       <div class="user-info">
         <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
-        <a href="/cafe-pos/api/logout.php" class="logout-btn">Đăng xuất</a>
-        <a href="/cafe-pos/public/index.php" class="back-btn">Về POS</a>
+        <a href="/api/logout.php" class="logout-btn">Đăng xuất</a>
+        <a href="/public/index.php" class="back-btn">Về POS</a>
       </div>
     </div>
 
@@ -112,6 +112,6 @@ if ($_SESSION['user']['role'] !== 'admin') {
       </div>
     </div>
   </div>
-  <script src="/cafe-pos/assets/js/admin.js"></script>
+  <script src="/assets/js/admin.js"></script>
 </body>
 </html>
