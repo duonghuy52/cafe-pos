@@ -4,7 +4,7 @@ session_start();
 
 // Kiểm tra trạng thái đăng nhập
 if (!isset($_SESSION['user'])) {
-    header('Location: /cafe-pos/public/login.php');
+    header('Location: /public/login.php');
     exit;
 }
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Trạng thái - Cafe POS</title>
-  <link rel="stylesheet" href="/cafe-pos/assets/css/admin.css">
+  <link rel="stylesheet" href="/assets/css/admin.css">
 </head>
 <body class="loaded">
   <div class="admin-container">
@@ -29,8 +29,8 @@ if (!isset($_SESSION['user'])) {
       </div>
       <div class="user-info">
         <?php echo htmlspecialchars($_SESSION['user']['username']); ?>
-        <a href="/cafe-pos/api/logout.php" class="logout-btn">Đăng xuất</a>
-        <a href="/cafe-pos/public/index.php" class="back-btn">Về POS</a>
+        <a href="/api/logout.php" class="logout-btn">Đăng xuất</a>
+        <a href="/public/index.php" class="back-btn">Về POS</a>
       </div>
   <script>window.CAFE_POS_USER = <?php echo json_encode(['id'=> $_SESSION['user']['id'], 'username' => $_SESSION['user']['username'], 'role' => $_SESSION['user']['role']]); ?>;</script>
     </div>
@@ -46,7 +46,7 @@ if (!isset($_SESSION['user'])) {
     // Hàm tải danh sách đơn hàng đang chờ duyệt từ API
     async function loadOrders(){
       // Gửi yêu cầu chỉ lấy các đơn hàng có trạng thái 'pending'
-      const res = await fetch('/cafe-pos/api/report.php?status=pending');
+      const res = await fetch('/api/report.php?status=pending');
       const data = await res.json();
       
       // Kiểm tra phản hồi từ API
@@ -76,7 +76,7 @@ if (!isset($_SESSION['user'])) {
             <div style="color:#6b7280;font-size:13px">${o.created_at} • Người bán: ${o.created_by ? o.created_by : '—' } • ${table} ${customer ? (' • '+customer) : ''}</div>
             <div style="color:#d97706;font-size:12px;font-weight:600;">Đang chờ duyệt</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center">${action}<a class="btn-secondary" href="/cafe-pos/public/invoice.php?order_id=${o.id}" target="_blank" style="padding:6px 10px;text-decoration:none;">In</a></div>
+          <div style="display:flex;gap:8px;align-items:center">${action}<a class="btn-secondary" href="/public/invoice.php?order_id=${o.id}" target="_blank" style="padding:6px 10px;text-decoration:none;">In</a></div>
         </div>`;
       }).join('');
       
@@ -98,11 +98,11 @@ if (!isset($_SESSION['user'])) {
         
         try {
           // Gửi yêu cầu cập nhật trạng thái đơn hàng thành 'confirmed' (đã duyệt)
-          const res = await fetch('/cafe-pos/api/orders.php', { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id: id, status: 'confirmed'}) });
+          const res = await fetch('/api/orders.php', { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id: id, status: 'confirmed'}) });
           
           if(res.ok){
             // Mở hóa đơn: Điều hướng cửa sổ đã mở trước đó tới URL hóa đơn để tránh bị chặn Popup
-            const invoiceUrl = '/cafe-pos/public/invoice.php?order_id=' + encodeURIComponent(id);
+            const invoiceUrl = '/public/invoice.php?order_id=' + encodeURIComponent(id);
             try {
               if (printWin && !printWin.closed) {
                 printWin.location.href = invoiceUrl;
