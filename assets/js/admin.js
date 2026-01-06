@@ -11,7 +11,7 @@ function fmt(n){
 // Hàm lấy danh sách sản phẩm từ API và hiển thị lên giao diện
 async function listProducts(search = '', category = ''){
   try {
-    const res = await fetch('/cafe-pos/api/products.php');
+    const res = await fetch('/api/products.php');
     if (!res.ok) {
       throw new Error('API status: ' + res.status);
     }
@@ -88,7 +88,7 @@ async function listProducts(search = '', category = ''){
 
 // Hàm tải chi tiết một sản phẩm và đổ dữ liệu vào Form
 async function loadProduct(id){
-  const res = await fetch('/cafe-pos/api/products.php?id='+encodeURIComponent(id));
+  const res = await fetch('/api/products.php?id='+encodeURIComponent(id));
   const p = await res.json();
   document.getElementById('p-id').value = p.id;
   document.getElementById('p-name').value = p.name;
@@ -141,7 +141,7 @@ async function save(){
   
   if(id){
     // Nếu có ID -> Thực hiện cập nhật sản phẩm (PUT)
-    const res = await fetch('/cafe-pos/api/products.php', {
+    const res = await fetch('/api/products.php', {
       method:'PUT', 
       headers:{'Content-Type':'application/json'}, 
       body: JSON.stringify({id, name, price, stock, category, description, image})
@@ -154,7 +154,7 @@ async function save(){
     else alert('❌ Lỗi khi cập nhật');
   } else {
     // Nếu không có ID -> Thực hiện thêm mới sản phẩm (POST)
-    const res = await fetch('/cafe-pos/api/products.php', {
+    const res = await fetch('/api/products.php', {
       method:'POST', 
       headers:{'Content-Type':'application/json'}, 
       body: JSON.stringify({name, price, stock, category, description, image})
@@ -171,7 +171,7 @@ async function save(){
 // Hàm xử lý Xóa sản phẩm
 async function delProduct(id){
   if(!confirm('⚠️ Bạn chắc chắn muốn xóa sản phẩm #' + id + ' không?')) return;
-  const res = await fetch('/cafe-pos/api/products.php', {
+  const res = await fetch('/api/products.php', {
     method:'DELETE', 
     headers:{'Content-Type':'application/json'}, 
     body: JSON.stringify({id})
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function(){
   // Tải danh sách các ảnh đã có sẵn trên máy chủ từ API
   async function loadImageList() {
     try {
-      const res = await fetch('/cafe-pos/api/images.php');
+      const res = await fetch('/api/images.php');
       const images = await res.json();
       
       images.forEach(img => {
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function(){
       formData.append('image', file);
       
       try {
-        const res = await fetch('/cafe-pos/api/upload.php', {
+        const res = await fetch('/api/upload.php', {
           method: 'POST',
           body: formData
         });
